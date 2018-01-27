@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Github Training</title>
+</head>
+<body>
+
+<h1>Team Github Training</h1>
+<br>
+<h3>(1) Get a clone of the "Training" project onto your raspberry pi</h3>
+<pre>
+> cd /var/www/html
+> github clone https://github.com/expertsystemsolutionsdevteam/training.git training
+</pre>
+
+<br>
+<h3>(2) Add a file that is under the "Training" project </h3>
+<p>First you will cd down into the training directory.  Then add a file using nano call it hello_world_{your name}.html.   Put your name in the place of {your name}.  Once inside of nano you can put the text "Hello Github!!" and save the file.
+<pre>
+> cd /var/www/html/training/
+> nano hello_world_{your name}.html
+</pre>
+
+<h3>(3) Now run the github status command</h3>
+<pre>
+> cd /var/www/html/training/
+> github status 
+</pre>
+</body>
+</html>
