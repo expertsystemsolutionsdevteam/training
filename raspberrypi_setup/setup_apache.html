@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md -->
+<html lang="en-GB"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Setting up an Apache Web Server on a Raspberry Pi - Raspberry Pi Documentation</title>
+    <meta name="description" content="Need to access a Raspberry Pi, but don’t have a monitor spare? This section provides basic instructions for setting up remote access.">
+    <link rel="icon" type="image/png" href="https://www.raspberrypi.org/wp-content/themes/mind-control/images/favicon.png">
+    <link rel="publisher" href="https://plus.google.com/+RaspberryPi">
+    <!--[if lt IE 9]>
+    <script src="/wp-content/themes/mind-control/js/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="./setup_apache_files/prism.css">
+    <link rel="stylesheet" href="./setup_apache_files/style.css">
+    <link rel="stylesheet" href="./setup_apache_files/mobile.css">
+    <link rel="stylesheet" href="./setup_apache_files/css">
+    <link rel="stylesheet" href="./setup_apache_files/css(1)">
+    <link rel="stylesheet" href="./setup_apache_files/hack.css">
+    <style>
+    .entry-content code {
+        font-family: Hack, monospace;  
+    }
+    </style>
+    <script type="text/javascript" async="" src="./setup_apache_files/ga.js"></script><script src="./setup_apache_files/jquery.min.js"></script>
+    <script src="./setup_apache_files/jquery.main.js"></script>
+    <script src="./setup_apache_files/prism.js"></script>
+
+    <script type="text/javascript">//<![CDATA[
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-46270871-1']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        //]]></script>
+
+    <link rel="canonical" href="https://www.raspberrypi.org/">
+    <link rel="shortlink" href="https://www.raspberrypi.org/">
+</head>
+
+<article class="entry-content">
+    <h1>Setting up an Apache Web Server on a Raspberry Pi</h1>
+<p>Apache is a popular web server application you can install on the Raspberry Pi to allow it to serve web pages.</p>
+<p>On its own, Apache can serve HTML files over HTTP, and with additional modules can serve dynamic web pages using scripting languages such as PHP.</p>
+<h2>Install Apache</h2>
+<p>First install the <code>apache2</code> package by typing the following command in to the Terminal:</p>
+<pre class=" language-bash"><code class=" language-bash">sudo apt<span class="token operator">-</span>get install apache2 <span class="token operator">-</span>y</code></pre>
+<h2>Test the web server</h2>
+<p>By default, Apache puts a test HTML file in the web folder. This default web page is served when you browse to <code>http://localhost/</code> on the Pi itself, or <code>http://192.168.1.10</code> (whatever the Pi's IP address is) from another computer on the network. To find the Pi's IP address, type <code>hostname -I</code> at the command line (or read more about finding your <a href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md">IP address</a>).</p>
+<p>Browse to the default web page either on the Pi or from another computer on the network and you should see the following:</p>
+<p><img src="./setup_apache_files/apache-it-works.png" alt="Apache success message"></p>
+<p>This means you have Apache working!</p>
+<h3>Changing the default web page</h3>
+<p>This default web page is just a HTML file on the filesystem. It is located at <code>/var/www/html/index.html</code>.</p>
+<p><strong>Note: The directory was <code>/var/www</code> in Raspbian Wheezy but is now <code>/var/www/html</code> in Raspbian Jessie</strong></p>
+<p>Navigate to this directory in a terminal window and have a look at what's inside:</p>
+<pre><code>cd /var/www/html
+ls -al</code></pre>
+<p>This will show you:</p>
+<pre class=" language-bash"><code class=" language-bash">total <span class="token number">12</span>
+drwxr<span class="token operator">-</span>xr<span class="token operator">-</span>x  <span class="token number">2</span> root root <span class="token number">4096</span> Jan  <span class="token number">8</span> <span class="token number">01</span><span class="token punctuation">:</span><span class="token number">29</span> <span class="token punctuation">.</span>
+drwxr<span class="token operator">-</span>xr<span class="token operator">-</span>x <span class="token number">12</span> root root <span class="token number">4096</span> Jan  <span class="token number">8</span> <span class="token number">01</span><span class="token punctuation">:</span><span class="token number">28</span> <span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">-</span>rw<span class="token operator">-</span>r<span class="token operator">--</span>r<span class="token operator">--</span>  <span class="token number">1</span> root root  <span class="token number">177</span> Jan  <span class="token number">8</span> <span class="token number">01</span><span class="token punctuation">:</span><span class="token number">29</span> index<span class="token punctuation">.</span>html</code></pre>
+<p>This shows that by default there is one file in <code>/var/www/html/</code> called <code>index.html</code>and it is owned by the <code>root</code> user (as is the enclosing folder). In order to edit the file, you need to change its ownership to your own username. Change the owner of the file (the default <code>pi</code> user is assumed here) using <code>sudo chown pi: index.html</code>.</p>
+<p>You can now try editing this file and then refreshing the browser to see the web page change.</p>
+<h3>Your own website</h3>
+<p>If you know HTML you can put your own HTML files and other assets in this directory and serve them as a website on your local network.</p>
+<h2>Additional - install PHP</h2>
+<p>To allow your Apache server to process PHP files, you'll need to install the latest version of PHP and the PHP module for Apache. Type the following command to install these:</p>
+<pre class=" language-bash"><code class=" language-bash">sudo apt<span class="token operator">-</span>get install php libapache2<span class="token operator">-</span>mod<span class="token operator">-</span>php <span class="token operator">-</span>y</code></pre>
+<p>Now remove the <code>index.html</code> file:</p>
+<pre class=" language-bash"><code class=" language-bash">sudo rm index<span class="token punctuation">.</span>html</code></pre>
+<p>and create the file <code>index.php</code>:</p>
+<pre class=" language-bash"><code class=" language-bash">sudo leafpad index<span class="token punctuation">.</span>php</code></pre>
+<p><em>Note: Leafpad is a graphical editor. Alternatively, use <code>nano</code> if you're restricted to the command line</em></p>
+<p>Put some PHP content in it:</p>
+<pre class=" language-php"><code class=" language-php"><span class="token php"><span class="token delimiter">&lt;?php</span> <span class="token keyword">echo</span> <span class="token string">"hello world"</span><span class="token punctuation">;</span> <span class="token delimiter">?&gt;</span></span></code></pre>
+<p>Now save and refresh your browser. You should see "hello world". This is not dynamic but still served by PHP. Try something dynamic:</p>
+<pre class=" language-php"><code class=" language-php"><span class="token php"><span class="token delimiter">&lt;?php</span> <span class="token keyword">echo</span> <span class="token function">date<span class="token punctuation">(</span></span><span class="token string">'Y-m-d H:i:s'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?&gt;</span></span></code></pre>
+<p>or show your PHP info:</p>
+<pre class=" language-php"><code class=" language-php"><span class="token php"><span class="token delimiter">&lt;?php</span> <span class="token function">phpinfo<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?&gt;</span></span></code></pre>
+
+
+</body></html>
