@@ -2,29 +2,116 @@
 <html>
 <head>
 <title>Github Training</title>
+
+<style>
+body {background-color: powderblue;}
+h1   {color: blue;}
+p    {color: black;}
+p.comment {
+	background-color: powderblue;
+}
+pre.code {
+	color: black;
+	background-color: lightgray;
+	font-size: 20px;
+	border-style: solid; 
+	border-width: 1px;
+	border-radius: 5px;
+	padding: 10px 10px 10px 10px
+}
+}
+</style>
+
 </head>
 <body>
 
 <h1>Team Github Training</h1>
 <br>
 <h3>(1) Get a clone of the "Training" project onto your raspberry pi</h3>
-<pre>
+<p>Note that the <b>username=expertsystemsolitionsdevteam</b> and <b>password=LLL</b></p>
+<pre class="code">
 > cd /var/www/html
-> github clone https://github.com/expertsystemsolutionsdevteam/training.git training
+> git clone https://github.com/expertsystemsolutionsdevteam/training.git training
+Cloning into 'training'...
+Username for 'https://github.com': expertsystemsolutionsdevteam
+Password for 'https://expertsystemsolutionsdevteam@github.com': 
+remote: Counting objects: 18, done.
+remote: Compressing objects: 100% (14/14), done.
+remote: Total 18 (delta 2), reused 13 (delta 0), pack-reused 0
+Unpacking objects: 100% (18/18), done.
+Checking connectivity... done.
+
 </pre>
 
-<br>
+<br><br>
 <h3>(2) Add a file that is under the "Training" project </h3>
-<p>First you will cd down into the training directory.  Then add a file using nano call it hello_world_{your name}.html.   Put your name in the place of {your name}.  Once inside of nano you can put the text "Hello Github!!" and save the file.
-<pre>
-> cd /var/www/html/training/
+<p class="comment">First you will cd down into the training directory.  Then add a file using nano call it <b>hello_world_{your name}.html</b>.   Put your name in the place of {your name}.  Once inside of nano you can put the text <b>"Hello Github!!"</b> and save the file.
+<pre class="code">
+> cd /var/www/html/training/github
 > nano hello_world_{your name}.html
 </pre>
 
-<h3>(3) Now run the github status command</h3>
-<pre>
-> cd /var/www/html/training/
-> github status 
+<br><br>
+<h3>(3) Now run the <b>git status</b> command</h3>
+<p class="comment" >Notice that your file shows up as an untracked file</p> 
+<pre class="code">
+> cd /var/www/html/training/github/
+> git status 
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	hello_world_marty.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+</pre>
+
+
+<br><br>
+<h3>(4) Now add the file to your local git instance using <b>"git add {filename}"</b> </h3>
+<pre class="code">
+> git add hello_world_marty.html 
+</pre>
+
+<br><br>
+<h3>(5) Now run git status again</b> </h3>
+<p>Notice that the file is no longer 'untracked'.  It is under the "Changes to be commited"</p>
+<pre class="code">
+> git status 
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   hello_world_marty.html
+
+
+
+</pre>
+
+<br><br>
+<h3>(6) Now run <b>'git commit {filename}'</b> </h3>
+<p>Note:  This commits the file to your <b>local</b> copy of the repository</p>
+<pre class="code">
+> git commit -m "Commiting the hello world file with my name" hello_world_marty.html
+ [master 6594353] hello_world_marty.html
+ 1 file changed, 3 insertions(+)
+ create mode 100644 github/hello_world_marty.html
+
+</pre>
+
+<br><br>
+<h3>(7) Now run <b>'git push origin'</b> </h3>
+<p>Note:  This pushes your file up to the github repository</p>
+<pre class="code">
+> git push origin 
+
 </pre>
 </body>
 </html>
