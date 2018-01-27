@@ -47,7 +47,7 @@ Checking connectivity... done.
 <h3>(2) Add a file that is under the "Training" project </h3>
 <p class="comment">First you will cd down into the training directory.  Then add a file using nano call it <b>hello_world_{your name}.html</b>.   Put your name in the place of {your name}.  Once inside of nano you can put the text <b>"Hello Github!!"</b> and save the file.
 <pre class="code">
-> cd /var/www/html/training/github
+> cd /var/www/html/training/github/hello_world
 > nano hello_world_{your name}.html
 </pre>
 
@@ -55,7 +55,7 @@ Checking connectivity... done.
 <h3>(3) Now run the <b>git status</b> command</h3>
 <p class="comment" >Notice that your file shows up as an untracked file</p> 
 <pre class="code">
-> cd /var/www/html/training/github/
+> cd /var/www/html/training/github/hello_world
 > git status 
 On branch master
 Your branch is up-to-date with 'origin/master'.
@@ -76,6 +76,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 <br><br>
 <h3>(4) Now add the file to your local git instance using <b>"git add {filename}"</b> </h3>
 <pre class="code">
+> cd /var/www/html/training/github/hello_world
 > git add hello_world_marty.html 
 </pre>
 
@@ -99,6 +100,7 @@ Changes to be committed:
 <h3>(6) Now run <b>'git commit {filename}'</b> </h3>
 <p>Note:  This commits the file to your <b>local</b> copy of the repository</p>
 <pre class="code">
+> cd /var/www/html/training/github/hello_world
 > git commit -m "Commiting the hello world file with my name" hello_world_marty.html
  [master 6594353] hello_world_marty.html
  1 file changed, 3 insertions(+)
