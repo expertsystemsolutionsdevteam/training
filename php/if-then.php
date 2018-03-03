@@ -1,0 +1,14 @@
+<?php
+
+$t = 10;
+
+if ($t == 9) {
+	echo "yes";
+}
+
+else {
+	echo "no";
+}
+
+?>
+
