@@ -6,6 +6,7 @@
 	Enter your name: <input name="name" type="text"><br>
 	Enter your address: <input name="address" type="text"><br>
 	What is your Favorite food?: <input name="food" type="text"><br>
+	Enter your E-mail: <input name="e-mail" type="text"><br>
 	<input type="submit">
 	<br>
 </form>
